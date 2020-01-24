@@ -63,6 +63,37 @@ def print_clusters(cluster_points_list):
     for i, cluster_points in enumerate(cluster_points_list):
         print('%d [%s]' % (i, ', '.join(map(str, cluster_points))))
     print('')
+    
+def converge(output_fn=None):
+    """Calls 'rebalance()' repeatedly until convergence is reached. Optionally
+       accepts a function that will be passed the iteration number 
+       on each iteration."""
+    iteration_num = 1
+    output_fn(iteration_num)
+    
+    while (rebalance()):
+        iteration_num += 1
+        if output_fn:
+            output_fn(iteration_num)
+
+    output_fn(iteration_num + 1)
+    
+def output(iteration_num):
+    """
+    Prints a single iteration of the required CLI output.
+    
+    params:
+        iteration_num: int, num of times rebalance executed
+    """
+    # print as shown in sample output
+    print("Iteration %d" % iteration_num)
+    clusters = sorted(groups, key=lambda x : x[2])
+    
+    for cluster in clusters:
+        print("%d %s" % (cluster[2], cluster[1]))  
+
+    print("\n")
+
 
 
 def main():
