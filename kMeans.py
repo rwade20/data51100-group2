@@ -118,8 +118,19 @@ def main():
         centroids = [mean(cluster_points) for cluster_points in cluster_points_list]
         iteration_count += 1
 
-        # TODO: test if the the clusters have converged, probably in a method call
-        # and set the variable "converged" to True
+def converge(output_fn=None):
+    """Calls 'rebalance()' repeatedly until convergence is reached. Optionally
+       accepts a function that will be passed the iteration number 
+       on each iteration."""
+    iteration_num = 1
+    output_fn(iteration_num)
+    
+    while (rebalance()):
+        iteration_num += 1
+        if output_fn:
+            output_fn(iteration_num)
+
+    output_fn(iteration_num + 1)
 
     # TODO: iterate list_of_points to produce the final output, both to the screen, and to and output file
     # probably in a separate method
