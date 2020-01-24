@@ -1,0 +1,20 @@
+# ignore the program output file
+prog2-output-data.txt
+
+# OSX noise
+.DS_Store
+
+# IntelliJ Idea noise
+.idea
+*.iws
+*.ipr
+*.iml
+
+# Python
+__pycache__
+*.pyc
+
+# tf aand tflearn
+log
+checkpoint
+*.model.*
