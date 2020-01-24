@@ -31,6 +31,42 @@ def get_user_input():
             print(e)
             print('An invalid number was provided, a positive integer is required.')
             print('')
+            
+def average(l):
+    # Accepts a numeric list and returns the average of the values in that list.
+    return sum(l)/float(len(l))
+     
+def distance(p, q):
+    # Accepts values and returns the distance between them.
+       #Note: the distance is always a positive integer.
+    return abs(p - q)
+    
+def initialize(values, k):
+    # Accepts a numeric list and the number of groups to be created.
+       Initializes the module based on the supplied values.
+       
+       if k < len(values):
+        global groups
+        groups = [ [x, [x], values.index(x)] for x in values[0:k] ]
+        groups.sort()
+        
+        for value in values[k:len(values)]:
+            group = find_best_group(value, groups)
+            group[1].append(value)
+            
+def find_best_group(p, l):
+    # this function does a binary search to locate and return the group with the nearest mean value.
+    if len(l) == 1:
+        return l[0];
+        
+    midpoint = int((len(l)-1) / 2)
+    d1 = distance(p, l[midpoint][0])
+    d2 = distance(p, l[midpoint + 1][0])
+    
+    if d1 < d2:
+        return find_best_group(p, l[0:midpoint + 1])
+
+    return find_best_group(p, l[midpoint + 1:len(l)])
 
 
 def main():
